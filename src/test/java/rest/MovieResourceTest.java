@@ -1,11 +1,13 @@
 package rest;
 
-import entities.RenameMe;
+import entities.Movie;
 import utils.EMF_Creator;
 import io.restassured.RestAssured;
 import static io.restassured.RestAssured.given;
 import io.restassured.parsing.Parser;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.core.UriBuilder;
@@ -17,16 +19,15 @@ import static org.hamcrest.Matchers.equalTo;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 //Uncomment the line below, to temporarily disable this test
 //@Disabled
 
-public class RenameMeResourceTest {
+public class MovieResourceTest {
 
     private static final int SERVER_PORT = 7777;
     private static final String SERVER_URL = "http://localhost/api";
-    private static RenameMe r1, r2;
+    private static Movie movie1, movie2, movie3;
 
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
     private static HttpServer httpServer;
@@ -64,13 +65,33 @@ public class RenameMeResourceTest {
     @BeforeEach
     public void setUp() {
         EntityManager em = emf.createEntityManager();
-        r1 = new RenameMe("Some txt", "More text");
-        r2 = new RenameMe("aaa", "bbb");
+//        r1 = new Movie("Some txt", "More text");
+//        r2 = new Movie("aaa", "bbb");
+
+        List<String> m1Actors = new ArrayList<>();
+        m1Actors.add("Heste Per");
+        m1Actors.add("Hest Gok");
+        movie1 = new Movie(1997, "Horse Ride", m1Actors);
+
+        List<String> m2Actors = new ArrayList<>();
+        m2Actors.add("Cykel Tyven");
+        m2Actors.add("Per Madsen");
+        m2Actors.add("Cykel Per");
+        movie2 = new Movie(1956, "Per Cykel Tyv", m2Actors);
+
+        List<String> m3Actors = new ArrayList<>();
+        m3Actors.add("James");
+        m3Actors.add("Bond");
+        m3Actors.add("Mini Me");
+        m3Actors.add("The One Eyed Villan");
+        movie3 = new Movie(2012, "Bond James Adventures", m3Actors);
+
         try {
             em.getTransaction().begin();
-            em.createNamedQuery("RenameMe.deleteAllRows").executeUpdate();
-            em.persist(r1);
-            em.persist(r2);
+            em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
+            em.persist(movie1);
+            em.persist(movie2);
+            em.persist(movie3);
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -101,6 +122,6 @@ public class RenameMeResourceTest {
                 .get("/xxx/count").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("count", equalTo(2));
+                .body("count", equalTo(3));
     }
 }

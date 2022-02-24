@@ -1,7 +1,9 @@
 package facades;
 
+import dtos.MovieDTO;
+import entities.Movie;
 import utils.EMF_Creator;
-import entities.RenameMe;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.AfterAll;
@@ -11,20 +13,23 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //Uncomment the line below, to temporarily disable this test
 //@Disabled
-public class FacadeExampleTest {
+public class MovieFacadeTest {
 
     private static EntityManagerFactory emf;
-    private static FacadeExample facade;
+    private static MovieFacade facade;
 
-    public FacadeExampleTest() {
+    public MovieFacadeTest() {
     }
 
     @BeforeAll
     public static void setUpClass() {
        emf = EMF_Creator.createEntityManagerFactoryForTest();
-       facade = FacadeExample.getFacadeExample(emf);
+       facade = MovieFacade.getMovieFacade(emf);
     }
 
     @AfterAll
@@ -39,9 +44,28 @@ public class FacadeExampleTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.createNamedQuery("RenameMe.deleteAllRows").executeUpdate();
-            em.persist(new RenameMe("Some txt", "More text"));
-            em.persist(new RenameMe("aaa", "bbb"));
+            em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
+
+            List<String> m1Actors = new ArrayList<>();
+            m1Actors.add("Heste Per");
+            m1Actors.add("Hest Gok");
+            em.persist(new Movie(1997, "Horse Ride", m1Actors));
+
+            List<String> m2Actors = new ArrayList<>();
+            m2Actors.add("Cykel Tyven");
+            m2Actors.add("Per Madsen");
+            m2Actors.add("Cykel Per");
+            em.persist(new Movie(1956, "Per Cykel Tyv", m2Actors));
+
+            List<String> m3Actors = new ArrayList<>();
+            m3Actors.add("James");
+            m3Actors.add("Bond");
+            m3Actors.add("Mini Me");
+            m3Actors.add("The One Eyed Villan");
+            em.persist(new Movie(2012, "Bond James Adventures", m3Actors));
+
+//            em.persist(new Movie("Some txt", "More text"));
+//            em.persist(new Movie("aaa", "bbb"));
 
             em.getTransaction().commit();
         } finally {
@@ -57,7 +81,7 @@ public class FacadeExampleTest {
     // TODO: Delete or change this method 
     @Test
     public void testAFacadeMethod() throws Exception {
-        assertEquals(2, facade.getRenameMeCount(), "Expects two rows in the database");
+        assertEquals(3, facade.getRenameMeCount(), "Expects two rows in the database");
     }
     
 
