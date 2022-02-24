@@ -77,4 +77,16 @@ public class MovieFacade {
         fe.getAll().forEach(dto->System.out.println(dto));
     }
 
+    public Long addMovie(MovieDTO movieDTO) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            Movie movie = new Movie(movieDTO.getYear(), movieDTO.getTitle(), movieDTO.getActors());
+            em.getTransaction().begin();
+            em.persist(movie);
+            em.getTransaction().commit();
+            return movie.getId();
+        } finally {
+            em.close();
+        }
+    }
 }
