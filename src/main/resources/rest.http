@@ -2,10 +2,14 @@ POST https://alekw.dk/MovieApp/api/movie
 Content-Type: application/json
 
 {
-  "year": "2020",
-  "title": "Twenty Twenty",
+  "year": "2021",
+  "title": "End of the World",
   "actors": [
-    "Boddy",
-    "Olsen"
+    "Jesus",
+    "Morten",
+    "Mr. Earthquake"
   ]
 }
+
+###
+

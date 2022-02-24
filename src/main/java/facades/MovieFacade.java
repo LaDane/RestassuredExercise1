@@ -64,7 +64,7 @@ public class MovieFacade {
         }
     }
     
-    public List<MovieDTO> getAll(){
+    public List<MovieDTO> getAllMovies(){
         EntityManager em = emf.createEntityManager();
         TypedQuery<Movie> query = em.createQuery("SELECT m FROM Movie m", Movie.class);
         List<Movie> rms = query.getResultList();
@@ -74,7 +74,7 @@ public class MovieFacade {
     public static void main(String[] args) {
         emf = EMF_Creator.createEntityManagerFactory();
         MovieFacade fe = getMovieFacade(emf);
-        fe.getAll().forEach(dto->System.out.println(dto));
+        fe.getAllMovies().forEach(dto->System.out.println(dto));
     }
 
     public Long addMovie(MovieDTO movieDTO) {
@@ -89,4 +89,18 @@ public class MovieFacade {
             em.close();
         }
     }
+
+//    public List<MovieDTO> getAllMovies() {
+//        EntityManager em = emf.createEntityManager();
+//
+//        try {
+////            List<MovieDTO> mList = new ArrayList<>();
+//            TypedQuery<Movie> query = em.createQuery("SELECT m FROM Movie m", Movie.class);
+//            List<Movie> rms = query.getResultList();
+//            return MovieDTO.getDtos(rms);
+//        } finally {
+//
+//        }
+//
+//    }
 }
