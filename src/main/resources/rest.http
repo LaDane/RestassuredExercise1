@@ -1,4 +1,4 @@
-POST https://alekw.dk/devops-starter/api/movie
+POST https://alekw.dk/MovieApp/api/movie
 Content-Type: application/json
 
 {
