@@ -1,6 +1,5 @@
 package facades;
 
-import dtos.MovieDTO;
 import entities.Movie;
 import utils.EMF_Creator;
 
@@ -80,8 +79,8 @@ public class MovieFacadeTest {
 
     // TODO: Delete or change this method 
     @Test
-    public void testAFacadeMethod() throws Exception {
-        assertEquals(3, facade.getRenameMeCount(), "Expects two rows in the database");
+    public void testDatabaseColumnCount() throws Exception {
+        assertEquals(3, facade.getMovieCount(), "Expects two rows in the database");
     }
     
 

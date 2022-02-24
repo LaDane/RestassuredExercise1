@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 
 @Entity
+@Table(name = "movie")
 @NamedQueries({
         @NamedQuery(name = "Movie.deleteAllRows", query = "DELETE from Movie"),
         @NamedQuery(name = "Movie.getAll", query = "SELECT m FROM Movie m"),
@@ -17,12 +18,16 @@ public class Movie implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "year")
     private int year;
+
+    @Column(name = "title")
     private String title;
 
     @ElementCollection
     private List<String> actors;
-//    private String[] actors;
+//    private String[] actors; //
 
     public Movie() {
 
