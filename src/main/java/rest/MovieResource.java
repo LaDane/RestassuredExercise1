@@ -49,9 +49,9 @@ public class MovieResource {
     }
 
     @GET
-    @Path("all")
+    @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllCustomer() {
+    public Response getAllMovies() {
         List<MovieDTO> mList = FACADE.getAllMovies();
         return Response
                 .ok()

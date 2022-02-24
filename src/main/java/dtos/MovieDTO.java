@@ -27,9 +27,7 @@ public class MovieDTO {
         }
         this.year = movie.getYear();
         this.title = movie.getTitle();
-        if (movie.getActors() != null) {
-            this.actors.addAll(movie.getActors());
-        }
+        this.actors = movie.getActors();
     }
 
     @Override
@@ -43,7 +41,7 @@ public class MovieDTO {
     }
 
     public static List<MovieDTO> getDtos(List<Movie> movies){
-        List<MovieDTO> movieDTOs = new ArrayList();
+        List<MovieDTO> movieDTOs = new ArrayList<>();
         movies.forEach(movie->movieDTOs.add(new MovieDTO(movie)));
         return movieDTOs;
     }
